@@ -63,6 +63,7 @@ func (l *List) Save(filename string) error {
 
 }
 
+// Fetches a List from the file name ${filename}
 func (l *List) Get(filename string) error {
 	file, err := os.ReadFile(filename)
 
