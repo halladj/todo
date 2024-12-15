@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+type Stringer interface {
+	String() string
+}
+
 type item struct {
 	Task        string
 	Done        bool
@@ -79,4 +83,24 @@ func (l *List) Get(filename string) error {
 	}
 
 	return json.Unmarshal(file, l)
+}
+
+func (l *List) String() string {
+	formated := ""
+
+	for k, t := range *l {
+		prefix := "  "
+		if t.Done {
+			prefix = "X "
+		}
+
+		// X INDEX: TASK_CONTENT
+		formated += fmt.Sprintf(
+			"%s%d: %s\n",
+			prefix,
+			k+1,
+			t.Task,
+		)
+	}
+	return formated
 }
