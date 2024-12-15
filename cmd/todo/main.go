@@ -31,6 +31,26 @@ func main() {
 	)
 	flag.Parse()
 
+	// Fix the --help output message:
+	flag.Usage = func() {
+		fmt.Fprintf(
+			flag.CommandLine.Output(),
+			"%s tool. Developed as part of personal tools set\n",
+			os.Args[0],
+		)
+		fmt.Fprintf(
+			flag.CommandLine.Output(),
+			"Copyright 2024\n",
+		)
+
+		fmt.Fprintf(
+			flag.CommandLine.Output(),
+			"Usage information:",
+		)
+
+		flag.PrintDefaults()
+	}
+
 	l := &todo.List{}
 
 	if err := l.Get(todoFileName); err != nil {
